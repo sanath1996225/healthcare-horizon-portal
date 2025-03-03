@@ -21,16 +21,16 @@ const Testimonial = ({
 }: TestimonialProps) => {
   return (
     <div className={cn(
-      "relative bg-white p-8 rounded-xl shadow-soft flex flex-col",
+      "relative bg-white p-8 rounded-xl shadow-soft flex flex-col card-hover",
       className
     )}>
-      <div className="text-blue-300 mb-4">
+      <div className="text-blue-400 mb-4">
         <Quote size={32} />
       </div>
       <p className="italic text-navy-800 mb-6">{quote}</p>
       <div className="mt-auto flex items-center">
         {imageSrc ? (
-          <div className="mr-4 w-12 h-12 rounded-full overflow-hidden flex-shrink-0">
+          <div className="mr-4 w-12 h-12 rounded-full overflow-hidden flex-shrink-0 border-2 border-blue-100">
             <img 
               src={imageSrc} 
               alt={author} 
