@@ -9,6 +9,8 @@ interface StatsCardProps {
   className?: string;
   icon?: ReactNode;
   accentColor?: string;
+  bgColor?: string;
+  textColor?: string;
 }
 
 const StatsCard = ({ 
@@ -17,11 +19,13 @@ const StatsCard = ({
   description, 
   className,
   icon,
-  accentColor = "bg-blue-500" 
+  accentColor = "bg-blue-500",
+  bgColor = "bg-white",
+  textColor = "text-blue-600"
 }: StatsCardProps) => {
   return (
     <div className={cn(
-      "bg-white p-6 rounded-2xl shadow-soft border border-gray-100 overflow-hidden relative",
+      `${bgColor} p-6 rounded-2xl shadow-soft border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-card`,
       className
     )}>
       <div className={`absolute top-0 left-0 w-2 h-full ${accentColor}`}></div>
@@ -32,7 +36,7 @@ const StatsCard = ({
           </div>
         )}
         <div className={icon ? "text-left" : "text-center w-full"}>
-          <p className="text-4xl font-bold text-blue-600 mb-2">{value}</p>
+          <p className={`text-4xl font-bold ${textColor} mb-2`}>{value}</p>
           <p className="text-navy-900 font-medium mb-2">{label}</p>
           {description && (
             <p className="text-sm text-navy-600">{description}</p>
