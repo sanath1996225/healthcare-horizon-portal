@@ -1,5 +1,6 @@
 
 import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   // Social media links
@@ -10,22 +11,22 @@ const Footer = () => {
     { name: 'instagram', icon: <Instagram size={18} />, url: 'https://www.instagram.com/revenuecare' }
   ];
 
-  // Service links 
+  // Service links with proper navigation
   const serviceLinks = [
-    { name: 'Revenue Cycle Management', url: '/services/revenue-cycle-management' },
-    { name: 'Claims Processing', url: '/services/claims-processing' },
-    { name: 'Denial Management', url: '/services/denial-management' },
-    { name: 'Patient Billing', url: '/services/patient-billing' },
-    { name: 'Financial Reporting', url: '/services/financial-reporting' }
+    { name: 'Revenue Cycle Management', url: '/#services', exists: true },
+    { name: 'Claims Processing', url: '/services/claims-processing', exists: false },
+    { name: 'Denial Management', url: '/services/denial-management', exists: false },
+    { name: 'Patient Billing', url: '/services/patient-billing', exists: false },
+    { name: 'Financial Reporting', url: '/services/financial-reporting', exists: false }
   ];
 
   // Resource links
   const resourceLinks = [
-    { name: 'Case Studies', url: '/resources/case-studies' },
-    { name: 'Blog', url: '/resources/blog' },
-    { name: 'Webinars', url: '/resources/webinars' },
-    { name: 'Industry Reports', url: '/resources/industry-reports' },
-    { name: 'FAQ', url: '/resources/faq' }
+    { name: 'Case Studies', url: '/resources/case-studies', exists: false },
+    { name: 'Blog', url: '/resources/blog', exists: false },
+    { name: 'Webinars', url: '/resources/webinars', exists: false },
+    { name: 'Industry Reports', url: '/resources/industry-reports', exists: false },
+    { name: 'FAQ', url: '/resources/faq', exists: false }
   ];
 
   return (
@@ -58,12 +59,21 @@ const Footer = () => {
             <ul className="space-y-2">
               {serviceLinks.map((service) => (
                 <li key={service.name}>
-                  <a 
-                    href={service.url} 
-                    className="text-gray-300 hover:text-white transition-colors"
-                  >
-                    {service.name}
-                  </a>
+                  {service.exists ? (
+                    <a 
+                      href={service.url}
+                      className="text-gray-300 hover:text-white transition-colors"
+                    >
+                      {service.name}
+                    </a>
+                  ) : (
+                    <Link 
+                      to={service.url}
+                      className="text-gray-300 hover:text-white transition-colors"
+                    >
+                      {service.name}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
@@ -74,12 +84,12 @@ const Footer = () => {
             <ul className="space-y-2">
               {resourceLinks.map((resource) => (
                 <li key={resource.name}>
-                  <a 
-                    href={resource.url} 
+                  <Link 
+                    to={resource.url}
                     className="text-gray-300 hover:text-white transition-colors"
                   >
                     {resource.name}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -119,13 +129,13 @@ const Footer = () => {
             </p>
             <div className="flex space-x-6">
               {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
-                <a 
+                <Link 
                   key={item}
-                  href={`/legal/${item.toLowerCase().replace(/\s+/g, '-')}`}
+                  to={`/legal/${item.toLowerCase().replace(/\s+/g, '-')}`}
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
                   {item}
-                </a>
+                </Link>
               ))}
             </div>
           </div>
