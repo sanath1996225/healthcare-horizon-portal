@@ -1,7 +1,33 @@
 
-import { Mail, Phone, MapPin } from 'lucide-react';
+import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 
 const Footer = () => {
+  // Social media links
+  const socialLinks = [
+    { name: 'facebook', icon: <Facebook size={18} />, url: 'https://www.facebook.com/revenuecare' },
+    { name: 'twitter', icon: <Twitter size={18} />, url: 'https://www.twitter.com/revenuecare' },
+    { name: 'linkedin', icon: <Linkedin size={18} />, url: 'https://www.linkedin.com/company/revenuecare' },
+    { name: 'instagram', icon: <Instagram size={18} />, url: 'https://www.instagram.com/revenuecare' }
+  ];
+
+  // Service links 
+  const serviceLinks = [
+    { name: 'Revenue Cycle Management', url: '/services/revenue-cycle-management' },
+    { name: 'Claims Processing', url: '/services/claims-processing' },
+    { name: 'Denial Management', url: '/services/denial-management' },
+    { name: 'Patient Billing', url: '/services/patient-billing' },
+    { name: 'Financial Reporting', url: '/services/financial-reporting' }
+  ];
+
+  // Resource links
+  const resourceLinks = [
+    { name: 'Case Studies', url: '/resources/case-studies' },
+    { name: 'Blog', url: '/resources/blog' },
+    { name: 'Webinars', url: '/resources/webinars' },
+    { name: 'Industry Reports', url: '/resources/industry-reports' },
+    { name: 'FAQ', url: '/resources/faq' }
+  ];
+
   return (
     <footer className="bg-navy-900 pt-16 pb-8 text-white">
       <div className="container">
@@ -12,16 +38,16 @@ const Footer = () => {
               Optimizing healthcare financial performance with innovative solutions.
             </p>
             <div className="flex space-x-4">
-              {['facebook', 'twitter', 'linkedin', 'instagram'].map((social) => (
+              {socialLinks.map((social) => (
                 <a 
-                  key={social}
-                  href={`#${social}`}
-                  className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-400 transition-colors"
+                  key={social.name}
+                  href={social.url}
+                  aria-label={`Visit our ${social.name} page`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center hover:bg-blue-400 transition-colors"
                 >
-                  <span className="sr-only">{social}</span>
-                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2C6.477 2 2 6.477 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10c0-5.523-4.477-10-10-10z" />
-                  </svg>
+                  {social.icon}
                 </a>
               ))}
             </div>
@@ -30,16 +56,13 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4 text-white">Services</h4>
             <ul className="space-y-2">
-              {[
-                'Revenue Cycle Management',
-                'Claims Processing',
-                'Denial Management',
-                'Patient Billing',
-                'Financial Reporting'
-              ].map((service) => (
-                <li key={service}>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
-                    {service}
+              {serviceLinks.map((service) => (
+                <li key={service.name}>
+                  <a 
+                    href={service.url} 
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    {service.name}
                   </a>
                 </li>
               ))}
@@ -49,16 +72,13 @@ const Footer = () => {
           <div>
             <h4 className="text-lg font-semibold mb-4 text-white">Resources</h4>
             <ul className="space-y-2">
-              {[
-                'Case Studies',
-                'Blog',
-                'Webinars',
-                'Industry Reports',
-                'FAQ'
-              ].map((resource) => (
-                <li key={resource}>
-                  <a href="#" className="text-gray-300 hover:text-white transition-colors">
-                    {resource}
+              {resourceLinks.map((resource) => (
+                <li key={resource.name}>
+                  <a 
+                    href={resource.url} 
+                    className="text-gray-300 hover:text-white transition-colors"
+                  >
+                    {resource.name}
                   </a>
                 </li>
               ))}
@@ -101,7 +121,7 @@ const Footer = () => {
               {['Privacy Policy', 'Terms of Service', 'Cookie Policy'].map((item) => (
                 <a 
                   key={item}
-                  href="#"
+                  href={`/legal/${item.toLowerCase().replace(/\s+/g, '-')}`}
                   className="text-gray-400 hover:text-white text-sm transition-colors"
                 >
                   {item}
