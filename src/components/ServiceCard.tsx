@@ -1,6 +1,7 @@
 
 import { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
+import { handleImageError, isValidImageUrl, getBackupImageUrl } from '@/utils/imageUtils';
 
 interface ServiceCardProps {
   title: string;
@@ -19,17 +20,24 @@ const ServiceCard = ({
   imageSrc,
   link
 }: ServiceCardProps) => {
+  // Ensure imageSrc is valid before using it
+  const validImageSrc = imageSrc && isValidImageUrl(imageSrc) 
+    ? imageSrc 
+    : getBackupImageUrl(title.length % 6); // Use title length for deterministic fallback selection
+
   return (
     <div className={cn(
       "relative bg-white p-8 rounded-xl shadow-soft transition-all duration-300 hover:shadow-card hover:-translate-y-1 border border-gray-100 overflow-hidden group",
       className
     )}>
-      {imageSrc && (
+      {validImageSrc && (
         <div className="mb-6 -mx-8 -mt-8">
           <img 
-            src={imageSrc} 
+            src={validImageSrc} 
             alt={title} 
             className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={handleImageError(validImageSrc)}
+            loading="lazy"
           />
         </div>
       )}

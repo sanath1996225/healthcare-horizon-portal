@@ -2,9 +2,14 @@
 import { useState } from 'react';
 import { MessageSquare, SendHorizontal, X } from 'lucide-react';
 
+type MessageType = {
+  type: 'user' | 'bot';
+  content: string;
+};
+
 const AiChatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<{type: 'user' | 'bot', content: string}[]>([
+  const [messages, setMessages] = useState<MessageType[]>([
     {type: 'bot', content: 'Hello! I\'m RevenueCare AI assistant. How can I help you with revenue cycle management today?'}
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -18,16 +23,18 @@ const AiChatbot = () => {
     if (!inputValue.trim()) return;
 
     // Add user message
-    const updatedMessages = [...messages, {type: 'user', content: inputValue}];
+    const userMessage: MessageType = {type: 'user', content: inputValue};
+    const updatedMessages = [...messages, userMessage];
     setMessages(updatedMessages);
     setInputValue('');
 
     // Simulate AI response (in a real app, this would call an API)
     setTimeout(() => {
-      setMessages([...updatedMessages, {
+      const botResponse: MessageType = {
         type: 'bot', 
         content: 'Thanks for your message. Our AI is analyzing your question and will provide a detailed response soon. In a real implementation, this would connect to OpenAI API or a similar service.'
-      }]);
+      };
+      setMessages([...updatedMessages, botResponse]);
     }, 1000);
   };
 

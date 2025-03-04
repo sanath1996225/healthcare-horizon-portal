@@ -23,12 +23,17 @@ const StatsCard = ({
   bgColor = "bg-white",
   textColor = "text-blue-600"
 }: StatsCardProps) => {
+  // Ensure we're using valid Tailwind classes for colors
+  const validAccentColor = accentColor?.includes('bg-') ? accentColor : `bg-blue-500`;
+  const validBgColor = bgColor?.includes('bg-') ? bgColor : `bg-white`;
+  const validTextColor = textColor?.includes('text-') ? textColor : `text-blue-600`;
+
   return (
     <div className={cn(
-      `${bgColor} p-6 rounded-2xl shadow-soft border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-card`,
+      `${validBgColor} p-6 rounded-2xl shadow-soft border border-gray-100 overflow-hidden relative transition-all duration-300 hover:shadow-card`,
       className
     )}>
-      <div className={`absolute top-0 left-0 w-2 h-full ${accentColor}`}></div>
+      <div className={`absolute top-0 left-0 w-2 h-full ${validAccentColor}`}></div>
       <div className="flex items-start">
         {icon && (
           <div className="mr-4 w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
@@ -36,7 +41,7 @@ const StatsCard = ({
           </div>
         )}
         <div className={icon ? "text-left" : "text-center w-full"}>
-          <p className={`text-4xl font-bold ${textColor} mb-2`}>{value}</p>
+          <p className={`text-4xl font-bold ${validTextColor} mb-2`}>{value}</p>
           <p className="text-navy-900 font-medium mb-2">{label}</p>
           {description && (
             <p className="text-sm text-navy-600">{description}</p>
